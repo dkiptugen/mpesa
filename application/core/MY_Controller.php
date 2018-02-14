@@ -31,11 +31,11 @@ class MY_Controller extends CI_Controller
             {
                 if($this->session->userdata("loggedin") === TRUE)
                     {
-                        return (bool)TRUE;
+                        return (bool)1;
                     }
                 else
                     {
-                        return (bool)FALSE;
+                        return (bool)0;
                     }
             }
 	}

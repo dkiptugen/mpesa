@@ -9,13 +9,14 @@ class Login extends MY_Controller
 				parent::__construct();
                 $this->data["msg"]  =   NULL;
                 $this->load->model("Login_model","lmode");
+
+			}
+		public function login()
+			{
                 if(parent::is_logged_in())
                     {
                         redirect("home");
                     }
-			}
-		public function login()
-			{
                 $this->data["title"] = "Mpesa Login";
 			    if($this->input->post())
                     {
@@ -32,7 +33,7 @@ class Login extends MY_Controller
                                                 $newdata=(array)$details->data;
                                                 $newdata["loggedin"] = TRUE;
                                                 $this->session->set_userdata($newdata);
-
+                                                redirect("home");
                                             }
                                     }
                                 else
@@ -44,12 +45,20 @@ class Login extends MY_Controller
 			}
         public function forgotPass()
             {
+                if(parent::is_logged_in())
+                    {
+                        redirect("home");
+                    }
                 $this->data["title"] = "Forgot Password";
 
                 $this->load->view("login/changereq",$this->data);
             }
         public function changePass($data)
             {
+                if(parent::is_logged_in())
+                    {
+                        redirect("home");
+                    }
                 $this->data["title"] = "Change Password";
                 $x=json_decode($this->assist->certDecrypt(urldecode($data)));
                 if($this->input->post())
@@ -68,14 +77,23 @@ class Login extends MY_Controller
             }
         public function changepassword($data)
             {
+                if(parent::is_logged_in())
+                    {
+                        redirect("home");
+                    }
                 $this->data["title"] = "Change Password";
             }
         public function logout()
             {
-                var_dump(array_keys($_SESSION));
-
-                $this->session->unset_userdata(array_keys($_SESSION));
-                $this->session->sess_destroy();
-                redirect('login',"refresh");
+                try {
+                        $t = $this->session->all_userdata();
+                        $this->session->unset_userdata($t);
+                        $this->session->sess_destroy();
+                        redirect('login',"refresh");
+                    }
+                catch(Exception $e)
+                    {
+                        echo $e->getMessage();
+                    }
             }
 	}

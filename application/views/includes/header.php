@@ -45,11 +45,11 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="<?=base_url($this->session->userdata("user_image")); ?>" alt="<?=$this->assist->slugify($this->session->userdata("Name")); ?>" class="img-circle profile_img">
+                <img src="assets/img/user.png" alt="user avartar" class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2><?=$this->session->userdata("Name"); ?></h2>
+                <h2><?=$this->session->userdata("fullname"); ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -62,11 +62,15 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="<?=site_url("dashboard"); ?>"><i class="fa fa-dashboard"></i> Dashboard </a></li>
-                  <li><a><i class="fa fa-gavel"></i> Create <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="<?=site_url("home/accountbalance"); ?>"><i class="fa fa-balance-scale"></i>Account Balance</a></li>
+                  <li><a href="<?=site_url("home/transactionstatus"); ?>"><i class="fa fa-refresh"></i>Transaction Status</a></li>
+                  <li><a href="<?=site_url("home/incoming"); ?>"><i class="fa  fa-money fa-pull-left"></i><i class="fa  fa-user fa-pull-left"></i>Send to Customer</a></li>
+                    <li><a href="<?=site_url("home/incoming"); ?>"><i class="fa  fa-money fa-pull-left"></i><i class="fa fa-institution fa-pull-left"></i>Send to Business</a></li>
+                  <li class="clearfix"><a><i class="fa fa-gavel"></i> Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       
-                      <li><a href="<?=site_url("create/template"); ?>">Message template</a></li>
-                      <li><a href="<?=site_url("create/messagelist"); ?>">Message List</a></li>
+                      <li><a href="<?=site_url("home/incoming"); ?>"><i class="fa fa-inbox-in"></i>Incoming</a></li>
+                      <li><a href="<?=site_url("home/outgoing"); ?>"><i class="fa fa-inbox-out"></i>Outgoing</a></li>
                     </ul>
                   </li>
                   
@@ -75,12 +79,6 @@
                       <li><a href="<?=site_url("users"); ?>">Users</a></li>
                       
                       
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-table"></i> Reports <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?=site_url("reports/messages"); ?>">Messages</a></li>
-                      <li><a href="<?=site_url("reports/members"); ?>">Members</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -123,7 +121,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<?=base_url($this->session->userdata("user_image")); ?>" alt="<?=$this->assist->slugify($this->session->userdata("Name")); ?>"><?=$this->session->userdata("Name"); ?>
+                    <img src="assets/img/user.png" alt="User avartar"><?=$this->session->userdata("fullname"); ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -134,7 +132,7 @@
                         <span>Settings</span>
                       </a>
                     </li> -->
-                    <li><a href="javascript:;">Help</a></li>
+
                     <li><a href="<?=site_url("logout"); ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>

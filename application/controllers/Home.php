@@ -7,7 +7,10 @@ class Home extends MY_Controller
 		public function __construct()
 			{
 				parent::__construct();
-
+                if(!parent::is_logged_in())
+                    {
+                        redirect("login");
+                    }
 			}
 		public function index()
 			{

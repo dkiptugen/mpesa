@@ -19,8 +19,8 @@ $config['checkout_processlink']	=	'https://sandbox.safaricom.co.ke/mpesa/stkpush
 $config['checkout_querylink']	=	'https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query';
 $config['checkout_shortcode']	=	'174379';
 $config['checkout_passkey']		=	'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
-$config['checkout_rcallbackurl']=	site_url("RequestStkCallback");
-$config['checkout_qcallbackurl']=	site_url("QueryStkCallback");
+$config['checkout_rcallbackurl']=	"http://178.62.89.99/test.php";//site_url("RequestStkCallback");
+$config['checkout_qcallbackurl']=	"http://178.62.89.99/test.php";//site_url("QueryStkCallback");
 
 // Mpesa Reversal
 $config["reversal_link"]		=	'https://sandbox.safaricom.co.ke/mpesa/reversal/v1/request';
