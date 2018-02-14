@@ -65,7 +65,7 @@ class Mpesa
 										  	'PartyA' 				=> $msisdn,
 										  	'PartyB' 				=> $this->mpesa->checkout_shortcode,
 										  	'PhoneNumber' 			=> $msisdn,
-										  	'CallBackURL' 			=> $this->mpesa->checkout_callbackurl,
+										  	'CallBackURL' 			=> $this->mpesa->checkout_rcallbackurl,
 										  	'AccountReference' 		=> $ref,
 										  	'TransactionDesc' 		=> $desc
 										);
@@ -74,7 +74,10 @@ class Mpesa
 				curl_setopt($curl, CURLOPT_POST, true);
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
 				$curl_response 	= 	curl_exec($curl);
+				$data 			=	(array)json_decode($curl_response);
+				$data["refno"]	=	$curl_post_data['AccountReference'];
 				return $curl_response;
+
 			}
 		public function checkout_query($CheckoutRequestID)
 			{
@@ -187,7 +190,7 @@ class Mpesa
 				$curl_response = curl_exec($curl);
 				return $curl_response;
 			}
-		public function B2B($CommandID,$accountref,$remarks)
+		public function B2B($CommandID,$amount,$accountref,$remarks)
 			{
 				$url 	= 	$this->mpesa->b2b_link;
 				$curl 	= 	curl_init();
@@ -198,7 +201,7 @@ class Mpesa
 										  	'SecurityCredential' 		=> $this->cert($this->mpesa->credential),
 										  	'CommandID' 				=> $CommandID,
 										  	'SenderIdentifierType' 		=> $this->getIdentifier("Shortcode"),
-										  	'RecieverIdentifierType' 	=> $this->getIdentifier("MSISDN"),
+										  	'RecieverIdentifierType' 	=> $this->getIdentifier("shortcode"),
 										  	'Amount' 					=> $amount,
 										  	'PartyA' 					=> $this->mpesa->partyA_shortcode,
 										  	'PartyB' 					=> $this->mpesa->partyB_shortcode,

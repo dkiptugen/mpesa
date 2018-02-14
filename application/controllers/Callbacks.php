@@ -1,10 +1,10 @@
-<?php 
+<?php
 class Callbacks extends MY_Controller
 	{
 		public function __construct()
 			{
 				parent::__construct();
-				$this->load->model("Transaction_model","tmodel");
+
 			}
 		public static function processB2BRequestCallback()
 			{
@@ -40,7 +40,8 @@ class Callbacks extends MY_Controller
 					            "B2CRecipientIsRegisteredCustomer"		=>	$B2CRecipientIsRegisteredCustomer
 		        			);
 
-		        return json_encode($result);
+		        $resp = json_encode($result);
+                self::Logs("B2B.log",$resp);
     		}
     	public static function processB2CRequestCallback()
     		{
@@ -60,23 +61,25 @@ class Callbacks extends MY_Controller
 			    $receiverPartyPublicName 			= 	$callbackData->Result->ResultParameters->ResultParameter[6]->Value;
 			    $currency							=	$callbackData->Result->ResultParameters->ResultParameter[7]->Value;
 
-			    $result=[
-					        "resultCode"						=>	$resultCode,
-					        "resultDesc"						=>	$resultDesc,
-					        "originatorConversationID"			=>	$originatorConversationID,
-					        "conversationID"					=>	$conversationID,
-					        "transactionID"						=>	$transactionID,
-					        "initiatorAccountCurrentBalance"	=>	$initiatorAccountCurrentBalance,
-					        "debitAccountCurrentBalance"		=>	$debitAccountCurrentBalance,
-					        "amount"							=>	$amount,
-					        "debitPartyAffectedAccountBalance"	=>	$debitPartyAffectedAccountBalance,
-					        "transCompletedTime"				=>	$transCompletedTime,
-					        "debitPartyCharges"					=>	$debitPartyCharges,
-					        "receiverPartyPublicName"			=>	$receiverPartyPublicName,
-					        "currency"							=>	$currency
-			    ];
-                self::Logs("B2C.log",$result);
-        		return json_encode($result);
+			    $result=array(
+                                "resultCode"						=>	$resultCode,
+                                "resultDesc"						=>	$resultDesc,
+                                "originatorConversationID"			=>	$originatorConversationID,
+                                "conversationID"					=>	$conversationID,
+                                "transactionID"						=>	$transactionID,
+                                "initiatorAccountCurrentBalance"	=>	$initiatorAccountCurrentBalance,
+                                "debitAccountCurrentBalance"		=>	$debitAccountCurrentBalance,
+                                "amount"							=>	$amount,
+                                "debitPartyAffectedAccountBalance"	=>	$debitPartyAffectedAccountBalance,
+                                "transCompletedTime"				=>	$transCompletedTime,
+                                "debitPartyCharges"					=>	$debitPartyCharges,
+                                "receiverPartyPublicName"			=>	$receiverPartyPublicName,
+                                "currency"							=>	$currency
+                            );
+
+			    $resp = json_encode($result);
+                self::Logs("B2C.log",$resp);
+        		
 
     		}
     	public static function processC2BRequestValidation()
@@ -97,23 +100,24 @@ class Callbacks extends MY_Controller
 		        $middleName 		=	$callbackData->MiddleName;
 		        $lastName 			=	$callbackData->LastName;
 
-		        $result=[
-				            "transTime"			=>	$transTime,
-				            "transAmount"		=>	$transAmount,
-				            "businessShortCode"	=>	$businessShortCode,
-				            "billRefNumber"		=>	$billRefNumber,
-				            "invoiceNumber"		=>	$invoiceNumber,
-				            "orgAccountBalance"	=>	$orgAccountBalance,
-				            "thirdPartyTransID"	=>	$thirdPartyTransID,
-				            "MSISDN"			=>	$MSISDN,
-				            "firstName"			=>	$firstName,
-				            "lastName"			=>	$lastName,
-				            "middleName"		=>	$middleName,
-				            "transID"			=>	$transID,
-				            "transactionType"	=>	$transactionType
-		        		];
+		        $result=array(
+                                "transTime"			=>	$transTime,
+                                "transAmount"		=>	$transAmount,
+                                "businessShortCode"	=>	$businessShortCode,
+                                "billRefNumber"		=>	$billRefNumber,
+                                "invoiceNumber"		=>	$invoiceNumber,
+                                "orgAccountBalance"	=>	$orgAccountBalance,
+                                "thirdPartyTransID"	=>	$thirdPartyTransID,
+                                "MSISDN"			=>	$MSISDN,
+                                "firstName"			=>	$firstName,
+                                "lastName"			=>	$lastName,
+                                "middleName"		=>	$middleName,
+                                "transID"			=>	$transID,
+                                "transactionType"	=>	$transactionType
+                            );
 		        $resp =json_encode($result);
-		        $this->output->set_content_type('application/json')
+                $x  = & get_instance();
+		        $x::output->set_content_type('application/json')
 		                     ->set_output($resp);
     		}    
     	public static function processC2BRequestConfirmation()
@@ -134,24 +138,25 @@ class Callbacks extends MY_Controller
 		        $middleName 		= 	$callbackData->MiddleName;
 		        $lastName 			=	$callbackData->LastName;
 
-		        $result=[
-				            "transTime"			=>	$transTime,
-				            "transAmount"		=>	$transAmount,
-				            "businessShortCode"	=>	$businessShortCode,
-				            "billRefNumber"		=>	$billRefNumber,
-				            "invoiceNumber"		=>	$invoiceNumber,
-				            "orgAccountBalance"	=>	$orgAccountBalance,
-				            "thirdPartyTransID"	=>	$thirdPartyTransID,
-				            "MSISDN"			=>	$MSISDN,
-				            "firstName"			=>	$firstName,
-				            "lastName"			=>	$lastName,
-				            "middleName"		=>	$middleName,
-				            "transID"			=>	$transID,
-				            "transactionType"	=>	$transactionType
-		        		];
-		        $resp =json_encode($result);
-		        $this->output->set_content_type('application/json')
-		                     ->set_output($resp);
+		        $result=array(
+                                    "transTime"			=>	$transTime,
+                                    "transAmount"		=>	$transAmount,
+                                    "businessShortCode"	=>	$businessShortCode,
+                                    "billRefNumber"		=>	$billRefNumber,
+                                    "invoiceNumber"		=>	$invoiceNumber,
+                                    "orgAccountBalance"	=>	$orgAccountBalance,
+                                    "thirdPartyTransID"	=>	$thirdPartyTransID,
+                                    "MSISDN"			=>	$MSISDN,
+                                    "firstName"			=>	$firstName,
+                                    "lastName"			=>	$lastName,
+                                    "middleName"		=>	$middleName,
+                                    "transID"			=>	$transID,
+                                    "transactionType"	=>	$transactionType
+                            );
+                $x  = & get_instance();
+                $resp =json_encode($result);
+		        $x::output->set_content_type('application/json')
+                          ->set_output($resp);
 
    			}
     	public static function processAccountBalanceRequestCallback()
@@ -167,16 +172,16 @@ class Callbacks extends MY_Controller
 		        $accountBalance=$callbackData->Result->ResultParameters->ResultParameter[0]->Value;
 		        $BOCompletedTime=$callbackData->Result->ResultParameters->ResultParameter[1]->Value;
 
-		        $result=[
-		          "resultDesc"=>$resultDesc,
-		          "resultCode"=>$resultCode,
-		          "originatorConversationID"=>$originatorConversationID,
-		          "conversationID"=>$conversationID,
-		          "transactionID"=>$transactionID,
-		          "accountBalance"=>$accountBalance,
-		          "BOCompletedTime"=>$BOCompletedTime,
-		          "resultType"=>$resultType
-		        ];
+		        $result=array(
+                                  "resultDesc"                  =>$resultDesc,
+                                  "resultCode"                  =>$resultCode,
+                                  "originatorConversationID"    =>$originatorConversationID,
+                                  "conversationID"              =>$conversationID,
+                                  "transactionID"               =>$transactionID,
+                                  "accountBalance"              =>$accountBalance,
+                                  "BOCompletedTime"             =>$BOCompletedTime,
+                                  "resultType"                  =>$resultType
+                             );
 
 		        return json_encode($result);
 
@@ -193,22 +198,21 @@ class Callbacks extends MY_Controller
 		        $conversationID=$callbackData->Result->ConversationID;
 		        $transactionID=$callbackData->Result->TransactionID;
 
-		        $result=[
-		          "resultType"=>$resultType,
-		          "resultCode"=>$resultCode,
-		          "resultDesc"=>$resultDesc,
-		          "conversationID"=>$conversationID,
-		          "transactionID"=>$transactionID,
-		          "originatorConversationID"=>$originatorConversationID
-		        ];
-
-		        return json_encode($result);
+		        $result=array(
+                                  "resultType"                  =>$resultType,
+                                  "resultCode"                  =>$resultCode,
+                                  "resultDesc"                  =>$resultDesc,
+                                  "conversationID"              =>$conversationID,
+                                  "transactionID"               =>$transactionID,
+                                  "originatorConversationID"    =>$originatorConversationID
+                              );
+                return json_encode($result);
 
 	    	}
     	public static function processSTKPushRequestCallback()
 	    	{
 		        $callbackJSONData=file_get_contents('php://input');
-		        $callbackData=json_decode($callbackJSONData);
+		        $callbackData=json_decode($callbackJSONData)->Body;
 		        $resultCode=$callbackData->stkCallback->ResultCode;
 		        $resultDesc=$callbackData->stkCallback->ResultDesc;
 		        $merchantRequestID=$callbackData->stkCallback->MerchantRequestID;
@@ -216,24 +220,24 @@ class Callbacks extends MY_Controller
 		        $amount=$callbackData->stkCallback->CallbackMetadata->Item[0]->Value;
 		        $mpesaReceiptNumber=$callbackData->stkCallback->CallbackMetadata->Item[1]->Value;
 		        $balance=$callbackData->stkCallback->CallbackMetadata->Item[2]->Value;
-		        $b2CUtilityAccountAvailableFunds=$callbackData->stkCallback->CallbackMetadata->Item[3]->Value;
-		        $transactionDate=$callbackData->stkCallback->CallbackMetadata->Item[4]->Value;
-		        $phoneNumber=$callbackData->stkCallback->CallbackMetadata->Item[5]->Value;
+		        $transactionDate=$callbackData->stkCallback->CallbackMetadata->Item[3]->Value;
+		        $phoneNumber=$callbackData->stkCallback->CallbackMetadata->Item[4]->Value;
 
-		        $result=[
-		            "resultDesc"=>$resultDesc,
-		            "resultCode"=>$resultCode,
-		            "merchantRequestID"=>$merchantRequestID,
-		            "checkoutRequestID"=>$checkoutRequestID,
-		            "amount"=>$amount,
-		            "mpesaReceiptNumber"=>$mpesaReceiptNumber,
-		            "balance"=>$balance,
-		            "b2CUtilityAccountAvailableFunds"=>$b2CUtilityAccountAvailableFunds,
-		            "transactionDate"=>$transactionDate,
-		            "phoneNumber"=>$phoneNumber
-		        ];
-
-		        return json_encode($result);
+		        $result = array(
+                                    "resultDesc"=>$resultDesc,
+                                    "resultCode"=>$resultCode,
+                                    "merchantRequestID"=>$merchantRequestID,
+                                    "checkoutRequestID"=>$checkoutRequestID,
+                                    "amount"=>$amount,
+                                    "mpesaReceiptNumber"=>$mpesaReceiptNumber,
+                                    "balance"=>$balance,
+                                    "transactionDate"=>$transactionDate,
+                                    "phoneNumber"=>$phoneNumber
+                                );
+                
+		        $resp = json_encode($result);
+		        self::Logs("checkout.log",$resp);
+                self::Logs("checkout-1.log",$callbackJSONData);
 		    }
     	public static function processSTKPushQueryRequestCallback()
 	    	{
@@ -246,14 +250,14 @@ class Callbacks extends MY_Controller
 		        $resultCode 			=	$callbackData->ResultCode;
 		        $resultDesc 			=	$callbackData->ResultDesc;
 
-		        $result=[
-		            		"resultCode" 			=>	$resultCode,
-		            		"responseDescription" 	=>	$responseDescription,
-		            		"responseCode" 			=>	$responseCode,
-		            		"merchantRequestID" 	=>	$merchantRequestID,
-		            		"checkoutRequestID" 	=> 	$checkoutRequestID,
-	            			"resultDesc" 			=>	$resultDesc
-		        		];
+		        $result=array(
+                                    "resultCode" 			=>	$resultCode,
+                                    "responseDescription" 	=>	$responseDescription,
+                                    "responseCode" 			=>	$responseCode,
+                                    "merchantRequestID" 	=>	$merchantRequestID,
+                                    "checkoutRequestID" 	=> 	$checkoutRequestID,
+                                    "resultDesc" 			=>	$resultDesc
+                            );
 
 		        return json_encode($result);
 		    }
@@ -280,7 +284,7 @@ class Callbacks extends MY_Controller
 		        $CreditPartyName=$callbackData->Result->ResultParameters->ResultParameter[11]->Value;
 		        $DebitPartyName=$callbackData->Result->ResultParameters->ResultParameter[12]->Value;
 
-		        $result=[
+		        $result=array(
 		            "resultCode"=>$resultCode,
 		            "resultDesc"=>$resultDesc,
 		            "originatorConversationID"=>$originatorConversationID,
@@ -299,13 +303,13 @@ class Callbacks extends MY_Controller
 		            "OriginatorConversationID"=>$OriginatorConversationID,
 		            "CreditPartyName"=>$CreditPartyName,
 		            "DebitPartyName"=>$DebitPartyName
-		        ];
+                );
 
 		        return json_encode($result);
 		    }
-        public function Logs($filename,$content)
+        public static function Logs($filename,$content)
             {
-                $data= "\n".date("h:i:sa d,m,Y")."\t".$content;
+                $data= "\n".date("h:i:sa d,m,Y")."\t -".$content;
                 write_file(APPPATH.'logs/'.$filename, $data, 'a+');
             }
 	}

@@ -35,14 +35,14 @@ $config["balance_resultUrl"]	=	site_url("AccountBalCallback");
 // Mpesa C2B 
 $config["c2b_regiterUrl"]		=  	'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl';
 $config["c2b_transactionUrl"]	=	'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate';
-$config["c2b_confirmationURL"]	= 	site_url("C2BConfirmation");
-$config["c2b_validationURL"]	= 	site_url("C2BValidation");
+$config["c2b_confirmationUrl"]	= 	site_url("C2BConfirmation");
+$config["c2b_validationUrl"]	= 	site_url("C2BValidation");
 $config["c2b_shortcode"]		=	$config["partyA_shortcode"];//'';
 
 // Mpesa Transaction Status
 $config["transtat_link"]		=	'https://sandbox.safaricom.co.ke/mpesa/transactionstatus/v1/query';
-$config["transtat_resultURL"]	=	site_url("TransStatCallback");
-$config["transtat_timeoutURL"]	=	site_url("TransStatCallback");
+$config["transtat_resultURL"]	=	"http://178.62.89.99/test.php";//site_url("TransStatCallback");
+$config["transtat_timeoutURL"]	=	"http://178.62.89.99/test.php";//site_url("TransStatCallback");
 
 // Mpesa B2B
 $config["b2b_link"]				= 	'https://sandbox.safaricom.co.ke/mpesa/b2b/v1/paymentrequest';
@@ -51,5 +51,5 @@ $config["b2b_resultURL"]		=	site_url("B2BCallback");
 
 // Mpesa B2C
 $config["b2c_link"]				=	'https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
-$config["b2c_timeoutURL"]		=	site_url("B2CCallback");
-$config["b2c_resultURL"]		=	site_url("B2CCallback");
+$config["b2c_timeoutURL"]		=	"http://178.62.89.99/test.php";//site_url("B2CCallback");
+$config["b2c_resultURL"]		=	"http://178.62.89.99/test.php";//site_url("B2CCallback");
