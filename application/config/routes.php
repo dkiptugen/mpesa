@@ -20,3 +20,6 @@ $route["changepassword/(:any)"] = 'login/changePass/$1';
 $route["login"]                 = 'login/login';
 $route["logout"]                = 'login/logout';
 
+$route["home/incoming"]         = 'home/reports/incoming';
+$route["home/outgoing"]         = 'home/reports/outgoing';
+$route["dashboard"]             = 'home/index';

@@ -100,15 +100,15 @@ class Mpesa
 				$curl_response = curl_exec($curl);
 				return $curl_response;
 			}
-		public function reversal($Initiator,$cred,$TransID,$amount,$receiver,$remarks,$receiverType,$ocassion)
+		public function reversal($TransID,$amount,$receiver,$remarks,$receiverType,$ocassion)
 			{
 				$url 	= $this->mpesa->reversal_link;
 				$curl 	= curl_init();
 				curl_setopt($curl, CURLOPT_URL, $url);
 				curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generatetoken()));
 				$curl_post_data = array(
-										  	'Initiator' 				=> $Initiator,
-										  	'SecurityCredential' 		=> $cred,
+										  	'Initiator' 				=> $this->mpesa->initiator,
+										  	'SecurityCredential' 		=> $this->cert($this->mpesa->credential),
 										  	'CommandID' 				=> 'TransactionReversal',
 										  	'TransactionID' 			=> $TransID,
 										  	'Amount' 					=> $amount,
@@ -171,12 +171,12 @@ class Mpesa
 				return $curl_response;
 			}
 		public function C2B($amount,$msisdn,$ref)
-			{				
+			{
 				$url 	= $this->mpesa->c2b_transactionUrl;
 				$curl 	= curl_init();
 				curl_setopt($curl, CURLOPT_URL, $url);
-				curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generatetoken())); 
-				$curl_post_data = array(				  
+				curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generatetoken()));
+				$curl_post_data = array(
 										    "ShortCode"		=>	$this->mpesa->c2b_shortcode,
 										    "CommandID"		=>	"CustomerPayBillOnline",
 										    "Amount"		=> 	$amount,
@@ -200,7 +200,7 @@ class Mpesa
 										  	'Initiator' 				=> $this->mpesa->initiator,
 										  	'SecurityCredential' 		=> $this->cert($this->mpesa->credential),
 										  	'CommandID' 				=> $CommandID,
-										  	'SenderIdentifierType' 		=> $this->getIdentifier("Shortcode"),
+										  	'SenderIdentifierType' 		=> $this->getIdentifier("shortcode"),
 										  	'RecieverIdentifierType' 	=> $this->getIdentifier("shortcode"),
 										  	'Amount' 					=> $amount,
 										  	'PartyA' 					=> $this->mpesa->partyA_shortcode,

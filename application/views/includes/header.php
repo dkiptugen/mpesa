@@ -12,26 +12,26 @@
     <title><?=$ProjectName; ?></title>
 
     <!-- Bootstrap -->
-    <link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=base_url("assets/vendors/bootstrap/dist/css/bootstrap.min.css"); ?>" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="<?=base_url("assets/vendors/nprogress/nprogress.css"); ?>" rel="stylesheet">
     <!-- iCheck -->
-    <link href="assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="<?=base_url("assets/vendors/iCheck/skins/flat/green.css"); ?>" rel="stylesheet">
 	
     <!-- bootstrap-progressbar -->
-    <link href="assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <link href="<?=base_url("assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"); ?>" rel="stylesheet">
     <!-- JQVMap -->
-    <link href="assets/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <link href="<?=base_url("assets/vendors/jqvmap/dist/jqvmap.min.css"); ?>" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
-    <link href="assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="<?=base_url("assets/vendors/bootstrap-daterangepicker/daterangepicker.css"); ?>" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="assets/css/custom.min.css" rel="stylesheet">
+    <link href="<?=base_url("assets/css/custom.min.css"); ?>" rel="stylesheet">
   </head>
 
-  <body class="nav-md">
+  <body class="nav-md" style="background: #2A3F54; height: 100% !important;">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -45,7 +45,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="assets/img/user.png" alt="user avartar" class="img-circle profile_img">
+                <img src="<?=base_url("assets/img/user.png"); ?>" alt="user avartar" class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -62,11 +62,11 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="<?=site_url("dashboard"); ?>"><i class="fa fa-dashboard"></i> Dashboard </a></li>
-                  <li><a href="<?=site_url("home/accountbalance"); ?>"><i class="fa fa-balance-scale"></i>Account Balance</a></li>
-                  <li><a href="<?=site_url("home/transactionstatus"); ?>"><i class="fa fa-refresh"></i>Transaction Status</a></li>
-                  <li><a href="<?=site_url("home/incoming"); ?>"><i class="fa  fa-money fa-pull-left"></i><i class="fa  fa-user fa-pull-left"></i>Send to Customer</a></li>
-                    <li><a href="<?=site_url("home/incoming"); ?>"><i class="fa  fa-money fa-pull-left"></i><i class="fa fa-institution fa-pull-left"></i>Send to Business</a></li>
-                  <li class="clearfix"><a><i class="fa fa-gavel"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="<?=site_url("home/transactionstatus"); ?>"><i class="fa fa-spinner "></i>Transaction Status</a></li>
+                  <li><a href="<?=site_url("home/reversal"); ?>"><i class="fa fa-refresh"></i>Reversal</a></li>
+                  <li><a href="<?=site_url("home/b2c"); ?>"><i class="fa  fa-money fa-pull-left"></i><i class="fa  fa-user fa-pull-left"></i>Send to Customer</a></li>
+                    <li><a href="<?=site_url("home/b2b"); ?>"><i class="fa  fa-money fa-pull-left"></i><i class="fa fa-institution fa-pull-left"></i>Send to Business</a></li>
+                  <li class="clearfix"><a><i class="fa fa-table"></i> Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       
                       <li><a href="<?=site_url("home/incoming"); ?>"><i class="fa fa-inbox-in"></i>Incoming</a></li>
@@ -89,10 +89,7 @@
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="fa fa-cog" aria-hidden="true"></span>
-              </a>-->
-              <a data-toggle="tooltip" data-placement="top" title="Dashboard" href="<?=site_url("dashboard"); ?>"> 
+              <a data-toggle="tooltip" data-placement="top" title="Dashboard" href="<?=site_url("dashboard"); ?>">
                 <span class="fa fa-dashboard" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Incoming sms" href="<?=site_url("incomingsms"); ?>">
@@ -121,86 +118,14 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="assets/img/user.png" alt="User avartar"><?=$this->session->userdata("fullname"); ?>
+                    <img src="<?=base_url("assets/img/user.png"); ?>" alt="User avartar"><?=$this->session->userdata("fullname"); ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
-                    <!-- <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li> -->
-
                     <li><a href="<?=site_url("logout"); ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
-
-                <!-- <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li> -->
               </ul>
             </nav>
           </div>

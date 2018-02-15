@@ -19,36 +19,73 @@ class Home extends MY_Controller
 			    $this->data["view"]     =   "dashboard";
 				$this->load->view("structure",$this->data);
 			}
-		public function reports()
-            {
 
-            }
-		public function B2Ctest()
-            {                
-                $this->mpesa->B2C("SalaryPayment","5000","salary","salaries deployment");
-            }
-        public function B2Btest()
-            {                
-               echo $this->mpesa->B2B("BusinessToBusinessTransfer","5000","A0007","salaries");
-            }
-        public function Register()
-        	{
-        		echo $this->mpesa->C2B_REGISTER();
-        	}
-        public function checkout()
+        public function reports($type)
             {
-                var_dump($this->mpesa->checkout("254713154085",1,"DPM278","payment of dpm"));
+                $this->data["title"]    =   "Reports";
+                if($type === "incoming")
+                    {
+                        $this->data["subtitle"] =   "Incoming Transactions";
+                    }
+                elseif($type === "outgoing")
+                    {
+                        $this->data["subtitle"] =   "Outgoing Transactions";
+                    }
+                $this->data["view"] =   "reports";
+                $this->load->view("structure",$this->data);
             }
-		public function encrypt()
+        public function b2c()
             {
-                echo $this->mpesa->encryptPassword("This is me");
+                $this->data["subtitle"] =   "Business to Customer";
+                $this->data["view"]     =   "b2c";
+                $this->load->view("structure",$this->data);
             }
-        public function token()
-        	{
-        		echo $this->mpesa->generatetoken();
-        	}
+        public function b2b()
+            {
+                $this->data["subtitle"] =   "Business to Business";
+                $this->data["view"]     =   "b2b";
+                $this->load->view("structure",$this->data);
+            }
+        public function reversal()
+            {
+                $this->data["subtitle"] =   "Reversal";
+                $this->data["view"]     =   "reversal";
+                $this->load->view("structure",$this->data);
+            }
         public function transactionstatus()
             {
-                echo $this->mpesa->transactionstatus("MAI71H3ZPB","AG_20180118_000044aaee99e2e4f9d2",'600771',"shortcode","mpesa payment","px");
+                $this->data["subtitle"] =   "Transaction Status";
+                $this->data["view"]     =   "transactions";
+                $this->load->view("structure",$this->data);
+            }
+        public function test($type)
+            {
+                switch($type)
+                    {
+                        case "token":
+                                                echo $this->mpesa->generatetoken();
+                                                break;
+                        case "c2b_reg":
+                                                echo $this->mpesa->C2B_REGISTER();
+                                                break;
+                        case "trans_status":
+                                                echo $this->mpesa->transactionstatus("MAI71H3ZPB","AG_20180118_000044aaee99e2e4f9d2",'600771',"shortcode","mpesa payment","px");
+                                                break;
+                        case "checkout":
+                                                var_dump($this->mpesa->checkout("254713154085",1,"DPM278","payment of dpm"));
+                                                break;
+                        case "balance":
+                                                echo $this->mpesa->accountbalance("test");
+                                                break;
+                        case "b2c":
+                                                $this->mpesa->B2C("SalaryPayment","5000","salary","salaries deployment");
+                                                break;
+                        case "b2b":
+                                                echo $this->mpesa->B2B("BusinessToBusinessTransfer","5000","A0007","salaries");
+                                                break;
+                        case "default":
+                                                echo "invalid test";
+                                                break;
+                    }
             }
 	}
